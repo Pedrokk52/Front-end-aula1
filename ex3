@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajuste de Preço</title>
+    <style> body {
+        font-family: 'Courier New, Courier', monospace;
+        font-size: 1.5em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+        
+        input, button {
+        width: 200px;
+        padding: 5px;
+        margin: 10px;
+        border-radius: 5px;
+        }
+        p {
+        width: 400px;
+        height: 100px;
+        border: solid 1px black;
+        padding: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Calculadora de Aumento de Preço</h2>
+
+        <label for="nome">Nome da Mercadoria:</label>
+        <input type="text" id="nome" placeholder="Digite o nome da mercadoria">
+
+        <label for="preco">Preço da Mercadoria (R$):</label>
+        <input type="number" id="preco" placeholder="Digite o preço da mercadoria">
+
+        <button onclick="calcularAumento()">Calcular Novo Preço</button>
+
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularAumento() {
+            const nome = document.getElementById("nome").value;
+            const preco = parseFloat(document.getElementById("preco").value);
+
+            const resultadoDiv = document.getElementById("resultado");
+
+            if (!nome || isNaN(preco) || preco <= 0) {
+                resultadoDiv.innerHTML = '<p class="error">Por favor, insira um nome válido e um preço válido maior que 0.</p>';
+                return;
+            }
+
+            let aumento;
+            if (preco < 1000) {
+                aumento = 0.05; 
+            } else {
+                aumento = 0.07; 
+            }
+
+            const novoPreco = preco * (1 + aumento);
+            resultadoDiv.innerHTML = `<p>Mercadoria: ${nome}</p><p>Preço Antigo: R$ ${preco.toFixed(2)}</p><p>Novo Preço: R$ ${novoPreco.toFixed(2)}</p>`;
+        }
+    </script>
+
+</body>
+</html>
